@@ -13,6 +13,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Event;
 use app\models\EventPage;
+use IntaSend\IntaSendPHP\Checkout;
+use IntaSend\IntaSendPHP\Collection;
 
 class SiteController extends Controller
 {
@@ -89,7 +91,7 @@ class SiteController extends Controller
         $model = Event::find()->orderby(['id' => SORT_DESC])->all();
         $eventBanner = EventPage::find()->one();
 
-        return $this->render('event',[
+        return $this->render('event', [
             'model' => $model,
             'eventBanner' => $eventBanner,
         ]);
@@ -111,7 +113,7 @@ class SiteController extends Controller
     {
         $model = Cause::find()->orderby(['id' => SORT_DESC])->all();
 
-        return $this->render('cause',[
+        return $this->render('cause', [
             'model' => $model,
         ]);
     }
@@ -194,4 +196,110 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionDonate()
+    {
+        $credentials = [
+            'token' => 'ISSecretKey_live_13caa6af-39c2-420f-8c39-21883bd85e0a',
+            'publishable_key' => 'ISPubKey_live_5fab51c6-3e32-4c75-8e31-0cef81accf41'
+        ];
+
+        $checkout = new Checkout();
+        $checkout->init($credentials);
+        $collection = new Collection();
+        $collection->init($credentials);
+
+        $response = $collection->mpesa_stk_push($amount = 10, $phone_number = "254768540720", $currency = "KES", $method = "MPESA_STK_PUSH", $api_ref = "", $name = "", $email = "john@example.com");
+        print_r($response);
+        // return $this->render('donate');
+        // return $response;
+
+    }
+
+    // Method to check payment status
+    protected function checkPaymentStatus($invoice_id)
+    {
+        // Define your credentials
+        $credentials = [
+            'token' => 'ISSecretKey_live_13caa6af-39c2-420f-8c39-21883bd85e0a',
+            'publishable_key' => 'ISPubKey_live_5fab51c6-3e32-4c75-8e31-0cef81accf41'
+        ];
+
+        $collection = new Collection();
+        $collection->init($credentials);
+
+        // Check the status using the invoice ID
+        return $collection->status($invoice_id);
+    }
+
+    // public function actionInitiate()
+    // {
+    //     // Define your credentials
+    //     $credentials = [
+    //         'token' => 'ISSecretKey_live_13caa6af-39c2-420f-8c39-21883bd85e0a',
+    //         'publishable_key' => 'ISPubKey_live_5fab51c6-3e32-4c75-8e31-0cef81accf41'
+    //     ];
+
+    //     $amount = 10;
+    //     $phone_number = "254768540720";
+
+    //     $collection = new Collection();
+    //     $collection->init($credentials);
+
+    //     // Initiating the STK push
+    //     $response = $collection->mpesa_stk_push($amount, $phone_number);
+
+    //     // Get Invoice ID
+    //     $invoice_id = $response->invoice->invoice_id;
+
+    //     // Check
+    //     $statusResponse = $collection->status($invoice_id);
+
+    //     // Get update on status
+    //     $status = json_encode($statusResponse);
+
+    //     return $status;
+    // }
+
+    public function actionInitiate()
+    {
+        // Fetch IntaSend credentials from configuration
+        $credentials = Yii::$app->params['intasend'];
+
+        $amount = 10;
+        $phone_number = "254768540720";
+
+        try {
+            // Initialize IntaSend Collection
+            $collection = new Collection();
+            $collection->init($credentials);
+
+            // Initiating the STK push
+            $response = $collection->mpesa_stk_push($amount, $phone_number);
+
+            // Get Invoice ID
+            $invoice_id = $response->invoice->invoice_id;
+
+            // Check the status
+            $statusResponse = $collection->status($invoice_id);
+
+            // Convert status response to JSON for output
+            $status = json_encode($statusResponse);
+
+            return $this->asJson([
+                'status' => 'success',
+                'data' => $statusResponse,
+            ]);
+        } catch (\Exception $e) {
+            // Handle exceptions
+            Yii::error($e->getMessage(), 'payment');
+            return $this->asJson([
+                'status' => 'error',
+                'message' => 'An error occurred during the transaction.',
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+
 }

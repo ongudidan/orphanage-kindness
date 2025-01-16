@@ -26,11 +26,11 @@
     "yiisoft/yii2-symfonymailer": "~2.0.3",
     "sebastian/type": "*",
     "kartik-v/yii2-widget-select2": "dev-master",
-    "phpoffice/phpspreadsheet": "^2.2",
     "kartik-v/yii2-date-range": "dev-master",
     "kartik-v/yii2-widget-datepicker": "dev-master",
     "ramsey/uuid": "^4.7",
-    "2amigos/yii2-ckeditor-widget": "^2.1"
+    "2amigos/yii2-ckeditor-widget": "^2.1",
+    "intasend/intasend-php": "^1.1"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

@@ -11,10 +11,6 @@ if ($host === 'localhost') {
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',
-
-
-
-        
     ];
 } elseif ($host === 'delta.doubledeals.co.ke') {
     // Production environment for doubledeals.co.ke

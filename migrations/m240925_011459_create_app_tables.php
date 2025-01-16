@@ -238,6 +238,18 @@ class m240925_011459_create_app_tables extends Migration
             'created_by' => $this->string()->defaultValue(null),
             'updated_by' => $this->string()->defaultValue(null),
         ]);
+        // Create donate table
+        $this->createTable('{{%donate}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string()->defaultValue(null),
+            'email' => $this->string()->defaultValue(null),
+            'phone' => $this->string()->defaultValue(null),
+            'amount' => $this->string()->defaultValue(null),
+            'status' => $this->text()->defaultValue(null),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+        ]);
+
 
     }
 
