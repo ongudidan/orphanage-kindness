@@ -1,3 +1,7 @@
+<?php
+
+use yii\helpers\Url;
+?>
     <section class="donator-seciton">
         <div class="container">
             <div class="section-title">
@@ -59,10 +63,13 @@
                         <div class="text">
                             <h2>WE HELP many people</h2>
                             <h4>want to become a <span>volunteer!</span></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun<br>
-                                labore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            <p>Your time and skills can make a real difference in someone's life.
+                                Join our team of volunteers and help bring hope, care, and support to those who need it most.
+
+                                Whether it's offering a helping hand, sharing your knowledge, or simply being there — every act of kindness counts.<br>
+                                Together, we can create a brighter future for our community and beyond.
                             </p>
-                            <a href="#" class="btn-3">Apply now</a>
+                            <a href="<?= Url::to(['site/volunteer']) ?>" class="btn-3">Apply now</a>
                         </div>
                     </div>
                 </div>

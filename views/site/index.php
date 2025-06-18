@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'Orphanage site using Kindness template';
+$this->title = 'Island Muslim Orphanage - Home';
 ?>
 <div>
 
@@ -22,10 +22,17 @@ $this->title = 'Orphanage site using Kindness template';
     <?= $this->render('components/home/_event-section') ?>
 
     <!--/event-seciton-->
+    
     <!--.contact-seciton-->
 
     <?= $this->render('components/home/_contact-section') ?>
 
     <!--/contact-seciton-->
+
+    <!--.donator-seciton-->
+
+    <?= $this->render('components/home/_donator-section') ?>
+
+    <!--/donator-seciton-->
 
 </div>

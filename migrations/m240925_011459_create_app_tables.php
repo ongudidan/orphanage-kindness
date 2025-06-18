@@ -174,6 +174,44 @@ class m240925_011459_create_app_tables extends Migration
             'updated_by' => $this->string()->defaultValue(null),
         ]);
 
+        $this->createTable('{{%transactions}}', [
+            'id' => $this->primaryKey(),
+            'transaction_id' => $this->string()->notNull(),
+            'invoice_id' => $this->string(),
+            'state' => $this->string(),
+            'provider' => $this->string(),
+            'charges' => $this->decimal(10, 2),
+            'net_amount' => $this->decimal(10, 2),
+            'currency' => $this->string(),
+            'value' => $this->decimal(10, 2),
+            'account' => $this->string(),
+            'api_ref' => $this->string(),
+            'mpesa_reference' => $this->string(),
+            'host' => $this->string(),
+            'bin_country' => $this->string(),
+            'card_type' => $this->string(),
+            'retry_count' => $this->integer(),
+            'failed_reason' => $this->string(),
+            'failed_code' => $this->string(),
+            'failed_code_link' => $this->string(),
+            'customer_id' => $this->string(),
+            'phone_number' => $this->string(),
+            'email' => $this->string(),
+            'first_name' => $this->string(),
+            'last_name' => $this->string(),
+            'country' => $this->string(),
+            'zipcode' => $this->string(),
+            'payment_link' => $this->string(),
+            'customer_comment' => $this->string(),
+            'refundable' => $this->string(),
+            'response_created_at' => $this->dateTime(),
+            'response_updated_at' => $this->dateTime(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+        ]);
+
+
+
+
         // Create home_page table
         $this->createTable('{{%home_page}}', [
             'id' => $this->primaryKey(),
@@ -250,14 +288,24 @@ class m240925_011459_create_app_tables extends Migration
             'updated_at' => $this->integer()->defaultValue(null),
         ]);
 
-
+        $this->createTable('{{%volunteer}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string()->notNull(),
+            'email' => $this->string()->notNull(),
+            'phone' => $this->string(15)->notNull(),
+            'skills' => $this->string()->notNull(),
+            'availability' => $this->string()->notNull(),
+            'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
     public function safeDown()
-    {
+    {   
+        $this->dropTable('{{%volunteer}}');
+        $this->dropTable('{{%transactions}}');
         $this->dropTable('{{%site_info}}');
         $this->dropTable('{{%team}}');
         $this->dropTable('{{%gallery}}');

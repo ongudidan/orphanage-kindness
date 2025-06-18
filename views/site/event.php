@@ -5,8 +5,8 @@ use yii\helpers\Url;
 
 ?>
  <!--Start slider-section-->
-<section class="slider-section" style="background-image:url(/web/uploads/<?= $eventBanner->banner_image ?>);">
-    <div class="container">
+ <section class="slider-section" style="background-image:url(/web/uploads/<?= $eventBanner->banner_image ?? 'default-banner.jpg' ?>);">
+ <div class="container">
         <div class="slider">
             <div class="text team-light">
                 <h2> <span>All</span> Events </h2>

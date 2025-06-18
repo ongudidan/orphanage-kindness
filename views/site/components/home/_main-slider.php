@@ -88,7 +88,7 @@ $mainBanner = HomePage::find()->one();
                         data-endspeed="1200"
                         data-endeasing="Power4.easeIn"
                         style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                        <div class="grey-title"><a href="#" class="btn-3">Donate now</a></div>
+                        <div class="grey-title"><a href="donate" class="btn-3">Donate now</a></div>
                     </div>
                     <div class="tp-caption lfr tp-resizeme"
                         data-x="center" data-hoffset="0"
