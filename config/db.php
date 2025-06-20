@@ -1,9 +1,9 @@
 <?php
-  $host = $_SERVER['HTTP_HOST'];
+$host = $_SERVER['HTTP_HOST'];
 
 // print_r($host);
 // exit;
-if($host == 'localhost:502'){
+if ($host == 'localhost:502') {
     return [
         'class' => 'yii\db\Connection',
         'dsn' => 'mysql:host=mariadb;dbname=orphanage-kindness',
@@ -30,5 +30,3 @@ if($host == 'localhost:502'){
         //'schemaCache' => 'cache',
     ];
 }
-    
-    ?>
